@@ -29,11 +29,17 @@ class BillPlans(models.Model):
     #     help="Define tiered pricing blocks"
     # )
 
+    # pricing_method = fields.Selection([
+    #     #('block_rate', 'Block Rate'),
+    #     ('consumption_based', 'Consumption Based Rate'), 
+    #     ('range_based', 'Range Based Rate'),
+    # ], string='Pricing Method', default='Range Based Rate', required=True)
+    
     pricing_method = fields.Selection([
-        #('block_rate', 'Block Rate'),
-        ('consumption_based', 'Consumption Based Rate'), 
-        ('range_based', 'Range Based Rate'),
-    ], string='Pricing Method', default='Range Based Rate', required=True)
+    #('block_rate', 'Block Rate'),
+    ('consumption_based', 'Consumption Based Rate'), 
+    ('range_based', 'Range Based Rate'),
+], string='Pricing Method', default='range_based', required=True)
     
     # Add range-based rate table
     range_ids = fields.One2many(
