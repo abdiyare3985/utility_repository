@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_utility_meter_zone,access.utility.meter.zone,model_utility_meter_zone,,1,1,1,1
+access_utility_meter,access.utility.meter,model_utility_meter,,1,1,1,1
+access_create_customer_meter_wizard,access.create.customer.meter.wizard,model_create_customer_meter_wizard,,1,1,1,1
+access_meter_serials_user,access.meter.serials.user,model_meter_serials,base.group_user,1,1,1,1
+access_meter_discounts_user,access.meter.discounts.user,model_meter_discounts,base.group_user,1,1,1,1
+access_meter_groups_user,access.meter.groups.user,model_meter_groups,base.group_user,1,1,1,1
+access_billing_tariff_block_user,access.billing.tariff.block.user,model_billing_tariff_block,base.group_user,1,1,1,1
+access_billing_tariff_range_user,access.billing.tariff.range.user,model_billing_tariff_range,base.group_user,1,1,1,1
+access_meter_reading_user,access.meter.reading.user,model_meter_reading,base.group_user,1,1,1,1
+access_meter_status_reason_wizard_user,meter.status.reason.wizard user,model_meter_status_reason_wizard,base.group_user,1,1,1,0
+access_meter_list_report_wizard,meter.list.report.wizard,model_meter_list_report_wizard,base.group_user,1,1,1,1
+access_invoice_report_wizard,invoice.report.wizard,model_invoice_report_wizard,base.group_user,1,1,1,1
+access_meter_reading_report_wizard,meter.reading.report.wizard,model_meter_reading_report_wizard,base.group_user,1,1,1,1

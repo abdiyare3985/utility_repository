@@ -1,0 +1,62 @@
+<odoo>
+    <template id="payment_report_pdf_template">
+        <t t-call="web.external_layout">
+            <main>
+                <div class="page">
+                    <t t-foreach="docs" t-as="wizard">
+                        <div style="text-align:center; margin-bottom: 20px;">
+                            <h2 style="color:#1976d2; margin-bottom: 0;">Payment Report</h2>
+                            <span style="font-size:16px;">
+                                <strong>Date Range:</strong>
+                                <span style="color:#555;">
+                                    <t t-esc="wizard.date_from"/> &#8212; <t t-esc="wizard.date_to"/>
+                                </span>
+                            </span>
+                        </div>
+                        <table class="table table-sm table-bordered" style="width:100%; font-size:13px;">
+                            <thead style="background-color:#f5f5f5;">
+                                <tr>
+                                    <th style="width:8%; text-align:center;">#</th>
+                                    <th style="width:9%; text-align:center;">Meter ID</th>
+                                    <th style="width:42%; ">Customer Name</th>
+                                    <th style="width:18%; text-align:center;">Payment Date</th>
+                                    <th style="width:20%; text-align:center;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <t t-set="payments" t-value="env['account.payment'].search([('date', '&gt;=', wizard.date_from), ('date', '&lt;=', wizard.date_to),('partner_id', '=', wizard.customer_id.id),('partner_id', '!=', 41193)])"/> -->
+                              <t t-set="domain" t-value="[
+    ('date', '&gt;=', wizard.date_from),
+    ('date', '&lt;=', wizard.date_to),
+    ('partner_id', '!=', 41193)
+] + ([('partner_id', '=', wizard.customer_id.id)] if wizard.customer_id else [])"/>
+<t t-set="payments" t-value="env['account.payment'].search(domain)"/> 
+                                <t t-set="counter" t-value="1"/>
+                                <t t-foreach="payments" t-as="payment">
+                                    <tr>
+                                        <td style="text-align:center;"><t t-esc="counter"/></td>
+                                        <td style="text-align:center;"><t t-esc="payment.partner_id.meter_id.name"/></td>
+                                        <td style=""><t t-esc="payment.partner_id.name"/></td>
+                                        <td style="text-align:center;"><t t-esc="payment.date"/></td>
+                                        <td style="text-align:center;"><t t-esc="'%.2f' % payment.amount"/></td>
+                                    </tr>
+                                    <t t-set="counter" t-value="counter + 1"/>
+                                </t>
+                                <t t-if="not payments">
+                                    <tr>
+                                        <td colspan="5" style="text-align:center; color:#888;">No payments found for the selected date range.</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div style="margin-top:20px; text-align:right;">
+                            <t t-set="total" t-value="sum(payments.mapped('amount'))"/>
+                            <strong>Total Amount: </strong>
+                            <span style="color:#1976d2;"><t t-esc="'%.2f' % total"/></span>
+                        </div>
+                    </t>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

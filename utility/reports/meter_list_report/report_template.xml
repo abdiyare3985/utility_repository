@@ -1,0 +1,40 @@
+<odoo>
+    <template id="report_utility_meter_list">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center mb-4" style="font-family: Arial, Helvetica, sans-serif;">
+                    <h2 style="margin-bottom: 16px; font-size:18px;">Meter List</h2>
+                </div>
+                <t t-set="counter" t-value="1"/>
+                <table class="table table-sm table-bordered"
+                       style="width:100%; border-collapse: collapse; font-size:11px; font-family: Arial, Helvetica, sans-serif;">
+                    <thead>
+                        <tr style="background-color: #f2f2f2;">
+                            <th style="font-weight:bold; text-align:center;">No.</th>
+                            <th style="font-weight:bold; text-align:center;">Serial/Code</th>
+                            <th style="font-weight:bold; ">Customer</th>
+                            <th style="font-weight:bold; text-align:center;">Status</th>
+                            <th style="font-weight:bold; text-align:center;">Type</th>
+                            <th style="font-weight:bold; text-align:center;">Installation Date</th>
+                            <th style="font-weight:bold; text-align:center;">Zone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <t t-foreach="docs" t-as="meter">
+        <tr t-attf-style="background-color:#{'#FFCCCC' if meter.meter_status == 'disconnected' else '#FFFFFF'};">
+            <td style="text-align:center;"><t t-esc="counter"/></td>
+            <td style="text-align:center;"><t t-esc="meter.name"/></td>
+            <td style=";"><t t-esc="meter.customer_id.display_name"/></td>
+            <td style="text-align:center;"><t t-esc="meter.meter_status"/></td>
+            <td style="text-align:center;"><t t-esc="meter.meter_type"/></td>
+            <td style="text-align:center;"><t t-esc="meter.installation_date"/></td>
+            <td style="text-align:center;"><t t-esc="meter.zone_id.name"/></td>
+        </tr>
+        <t t-set="counter" t-value="counter + 1"/>
+    </t>
+                    </tbody>
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

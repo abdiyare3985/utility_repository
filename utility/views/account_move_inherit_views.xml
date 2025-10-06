@@ -1,0 +1,30 @@
+<odoo>
+   
+
+       <!-- <record id="view_move_tree_inherit_water_meter" model="ir.ui.view">
+    <field name="name">account.move.tree.inherit.water.meter</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_invoice_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="partner_meter_id"/>
+        </xpath>
+    </field>
+</record> -->
+
+ 
+
+<record id="view_account_move_filter_inherit_partner_meter" model="ir.ui.view">
+    <field name="name">account.move.filter.inherit.partner.meter</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_move_filter"/>
+    <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+            <field name="partner_meter_id"/>
+        </field>
+          <xpath expr="//search" position="inside">
+                <filter string="Meter" name="partner_id.meter_id.name" domain="[]"/>
+            </xpath>
+    </field>
+</record>
+</odoo>

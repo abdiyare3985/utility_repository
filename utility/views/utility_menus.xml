@@ -1,0 +1,10 @@
+<odoo>
+    <menuitem id="menu_utility_root" name="Utility"/>
+    <menuitem id="menu_meter_config" name="Configuration" parent="menu_utility_root" />
+    <menuitem id="menu_meter_pro" name="Properties" parent="menu_utility_root" />
+     <menuitem id="menu_meter_readings" name="Meter Readings" parent="menu_utility_root" />
+      <menuitem id="menu_meter_reports" name="Reports" parent="menu_utility_root" />
+
+
+  
+</odoo>

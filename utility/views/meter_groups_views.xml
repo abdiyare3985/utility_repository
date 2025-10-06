@@ -1,0 +1,41 @@
+<odoo>
+    <record id="view_meter_groups_tree" model="ir.ui.view">
+        <field name="name">meter.groups.tree</field>
+        <field name="model">meter.groups</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_meter_groups_form" model="ir.ui.view">
+        <field name="name">meter.groups.form</field>
+        <field name="model">meter.groups</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+
+    <record id="action_meter_groups" model="ir.actions.act_window">
+        <field name="name">Meter Groups</field>
+        <field name="res_model">meter.groups</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+   
+    <menuitem id="menu_meter_groups" name="Groups" parent="menu_meter_config" action="action_meter_groups"/>
+</odoo>

@@ -1,0 +1,82 @@
+<odoo>
+
+
+<record id="view_res_partner_filter_inherit_meter_id" model="ir.ui.view">
+    <field name="name">res.partner.filter.inherit.meter.id</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter"/>
+    <field name="arch" type="xml">
+        <field name="name" position="after">
+            <field name="meter_id"/>
+        </field>
+    </field>
+</record>
+  
+<record id="view_res_partner_tree_inherit_meter_info" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherit.meter.info</field>
+        <field name="model">res.partner</field>
+         <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='display_name']" position="replace">
+    <!-- <field name="display_name" readonly="1"/> -->
+    <field name="meter_id"/>
+            <!-- <field name="meter_status"/>
+            <field name="installation_date"/>
+            <field name="meter_type"/> -->
+</xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_form_inherit_meter_info" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.meter.info</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+      
+ <!-- Replace the name field in the header h1 with display_name -->
+        <xpath expr="//h1/field[@name='name']" position="replace">
+            <field name="display_name" readonly="1"/>
+        </xpath>
+
+        <!-- (Optional) Hide the editable name field elsewhere if you want -->
+        <xpath expr="//field[@name='name']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+            <!-- Target the notebook tag and insert the page at the first position -->
+            <xpath expr="//notebook/page[1]" position="replace">
+                <page string="Meter Info">
+                    <group>
+                       <!-- <field name="meter_id"/>
+                       <field name="meter_status"/>
+                       <field name="installation_date"/>
+                       <field name="meter_type"/> -->
+                    </group>
+                    <group>
+                        
+                        <!-- <field name="meter_serial_number"/>
+                        <field name="meter_zone"/>
+                        <field name="meter_status"/>
+                        <field name="discount_name"/> -->
+                    </group>
+                </page>
+            </xpath>
+              <xpath expr="//notebook/page[1]" position="after">
+              <page string="Meter Readings">
+    <field name="meter_id" invisible="1"/>
+   
+</page>
+            </xpath>
+          
+        </field>
+    </record>
+   
+
+    <record id="action_utility_customer_list" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+         <field name="domain">[('customer_rank', '>', 0)]</field> <!-- Filter customers -->
+    </record>
+
+    <menuitem id="menu_utility_customers" name="Customers" parent="menu_meter_pro" sequence="20" action="action_utility_customer_list"/>
+</odoo>

@@ -1,0 +1,61 @@
+<odoo>
+    <template id="report_meter_reading_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <h2 style="text-align:center;">Meter Reading Report</h2>
+                <t t-if="period or zone">
+                    <div style="margin-bottom: 10px;">
+                        <span><strong>Period:</strong> <t t-esc="period"/></span>
+                        <span style="margin-left: 30px;"><strong>Zone:</strong> <t t-esc="zone"/></span>
+                    </div>
+                </t>
+                <table class="table table-sm table-bordered" style="width:100%; font-size:12px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Reading Number</th>
+                            <th style="text-align:center;">Meter ID</th>
+                            <!-- <th style="text-align:center;">Meter Name</th>
+                            <th style="text-align:center;">Period</th>
+                            <th style="text-align:center;">Previous Reading</th>
+                            <th style="text-align:center;">Current Reading</th>
+                            <th style="text-align:center;">Consumption</th>
+                            <th style="text-align:center;">Bill</th>
+                            <th style="text-align:center;">Fixed Charge</th>
+                            <th style="text-align:center;">Tax</th>
+                            <th style="text-align:center;">Total</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                      <t t-foreach="docs" t-as="reading" t-counter="idx">
+        <tr>
+            <td><t t-esc="idx"/></td>
+            <td><t t-esc="reading.id"/></td>
+        </tr>
+    </t>
+                        <!-- <t t-foreach="docs" t-as="reading" t-counter="idx">
+                            <tr>
+                                <td style="text-align:center;"><t t-esc="idx"/></td>
+                                <td style="text-align:center;"><t t-esc="reading.meter_id.name if reading.meter_id else ''"/></td>
+                                <td style="text-align:center;"><t t-esc="reading.meter_id.customer_id.name if reading.meter_id and reading.meter_id.customer_id else ''"/></td>
+                                <td style="text-align:center;"><t t-esc="reading.bill_period"/></td>
+                                <td style="text-align:center;"><t t-esc="reading.previous_reading"/></td>
+                                <td style="text-align:center;"><t t-esc="reading.current_reading"/></td>
+                                <td style="text-align:center;"><t t-esc="reading.consumption"/></td>
+                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.amount"/></td>
+                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.fixed_charge"/></td>
+                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.tax_amount"/></td>
+                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.total_amount"/></td>
+                            </tr>
+                        </t> -->
+                    </tbody>
+                </table>
+                <t t-if="not docs">
+                    <div>
+                        <h3 style="text-align:center; color: #888;">No meter readings found for the selected period.</h3>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

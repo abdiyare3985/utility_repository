@@ -1,0 +1,113 @@
+<odoo>
+    <record id="view_utility_meter_tree" model="ir.ui.view">
+        <field name="name">utility.meter.tree</field>
+        <field name="model">utility.meter</field>
+        <field name="arch" type="xml">
+            <tree create="1" decoration-success="meter_status =='connected'" decoration-danger="meter_status =='disconnected'">
+                <field name="name" string="Code#"/>
+                <!-- <field name="serial_id"/> -->
+                <field name="customer_id"/>
+               
+                <field name="meter_type"/>
+                <field name="installation_date"/>
+                <field name="zone_id"/>
+                <!-- <field name="group_id"/> -->
+                <!-- <field name="tariff_id"/> -->
+                <field name="address"/>
+                 <field name="meter_status" decoration-danger="meter_status=='disconnected'" decoration-success="meter_status=='connected'" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_utility_meter_form" model="ir.ui.view">
+        <field name="name">utility.meter.form</field>
+        <field name="model">utility.meter</field>
+        <field name="arch" type="xml">
+            <form>
+               <header>
+                <field name="meter_status" widget="statusbar" clickable="1"/>
+                <button name="action_disconnect" type="object" string="Disconnect" class="btn-primary" invisible="meter_status == 'disconnected'"/>
+                <button name="action_connect" type="object" string="Reconnect" class="btn-success" invisible="meter_status == 'connected'"/>
+            </header>
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                        <span invisible="serial_id == False"> - <field name="serial_id" options="{'no_create': True}"/></span>
+                    </h1>
+                    <group col="2">
+                        <group>
+                            <separator string="Meter Details"/>
+                            <field name="meter_type"/>
+                            <field name="meter_status"/>
+                            <field name="installation_date"/>
+                            <field name="serial_id"/>
+                            <field name="zone_id"/>
+                            <field name="group_id"/>
+                        </group>
+                        <group>
+                            <separator string="Customer"/>
+                            <field name="customer_id"/>
+                            <field name="tariff_id"/>
+                            <field name="discount_id"/>
+                        </group>
+                    </group>
+                    <separator string="Address"/>
+                    <group col="2">
+                    <group>
+                        <field name="house_number"/>
+                        <field name="street"/>
+                        <field name="area"/>
+                        </group>
+                        <group>
+                        <field name="city"/>
+                        <field name="state"/>
+                        <field name="address" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                  <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers" readonly="1"/>
+                <field name="activity_ids" widget="mail_activity" readonly="1"/>
+                <field name="message_ids" widget="mail_thread" readonly="1"/>
+            </div>
+            </form>
+        </field>
+    </record>
+
+     <record id="view_utility_meter_search" model="ir.ui.view">
+        <field name="name">utility.meter.search</field>
+        <field name="model">utility.meter</field>
+        <field name="arch" type="xml">
+            <search string="Search Meters">
+                <field name="name" string="Meter Code"/>
+                <field name="customer_id"/>
+                <field name="zone_id"/>
+                <field name="meter_status"/>
+
+                <filter string="Connected" name="connected" domain="[('meter_status','=','connected')]"/>
+            <filter string="Disconnected" name="disconnected" domain="[('meter_status','=','disconnected')]"/>
+
+                          <!-- add a Group By option for meter_status -->
+                
+
+                 <filter name="group_by_meter_status"
+                        string="Group by Status"
+                        context="{'group_by': 'meter_status'}"/>
+                <filter name="group_by_meter_zone"
+                        string="Group by Zone"
+                        context="{'group_by': 'zone_id'}"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_utility_meter" model="ir.actions.act_window">
+        <field name="name">Meters</field>
+        <field name="res_model">utility.meter</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_utility_meter_search"/>
+       
+    </record>
+
+    <menuitem id="menu_utility_meter" name="Meters" parent="menu_meter_pro" action="action_utility_meter"/>
+</odoo>

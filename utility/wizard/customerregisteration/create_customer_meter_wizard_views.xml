@@ -1,0 +1,60 @@
+<odoo>
+
+       <record id="view_create_customer_meter_wizard_form" model="ir.ui.view">
+        <field name="name">create.customer.meter.wizard.form</field>
+        <field name="model">create.customer.meter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Customer Meter">
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <separator string="Customer Details"/>
+                            <field name="customer_name"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="existing_customer"/>
+                            <field name="partner_id" invisible="existing_customer == False"/>
+                        </group>
+                        <group>
+                            <separator string="Meter Details"/>
+                            <field name="meter_type"/>
+                            <field name="serial_id"/>
+                            
+                            <field name="connection_date"/>
+                            <field name="status"/>
+                            <field name="zone_id"/>
+                            <field name="group_id"/>
+                            <field name="tariff_id"/>
+                            <field name="discount_id"/>
+                        </group>
+                    </group>
+                    <separator string="Address"/>
+                    <group col="2">
+                        <field name="house_number"/>
+                        <field name="street"/>
+                        <field name="area"/>
+                        <field name="city"/>
+                        <field name="state"/>
+                        <field name="address" readonly="1"/>
+                    </group>
+                     <footer>
+                        <button name="action_create_meter"
+                                string="Create Meter"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+     <record id="action_create_customer_meter_wizard" model="ir.actions.act_window">
+        <field name="name">Create Customer Meter</field>
+        <field name="res_model">create.customer.meter.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_create_customer_meter_wizard_form"/>
+    </record>
+</odoo>

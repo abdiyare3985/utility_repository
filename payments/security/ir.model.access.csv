@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sahal_import_user,sahal.import user,model_sahal_import,base.group_user,1,1,1,1
+access_sahal_import_payment_line_user,sahal.import.payment.line user,model_sahal_import_payment_line,base.group_user,1,1,1,1
+access_payment_report_wizard_user,payment.report.wizard user,model_payment_report_wizard,base.group_user,1,1,1,1

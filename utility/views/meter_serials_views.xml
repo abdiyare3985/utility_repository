@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_meter_serials_tree" model="ir.ui.view">
+        <field name="name">meter.serials.tree</field>
+        <field name="model">meter.serials</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="serial_number"/>
+                <field name="meter_type"/>
+                <field name="model"/>
+                <field name="capacity"/>
+              
+                <field name="active"/>
+                <field name="state"/>
+                <field name="assigned_date"/>
+                <field name="retired_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_meter_serials_form" model="ir.ui.view">
+        <field name="name">meter.serials.form</field>
+        <field name="model">meter.serials</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="serial_number"/>
+                        <field name="meter_type"/>
+                        <field name="model"/>
+                        <field name="capacity"/>
+                      
+                        <field name="active"/>
+                        <field name="state"/>
+                        <field name="assigned_date"/>
+                        <field name="retired_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+  
+
+    <record id="action_meter_serials" model="ir.actions.act_window">
+        <field name="name">Meter Serials</field>
+        <field name="res_model">meter.serials</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+      
+    <menuitem id="menu_meter_serials" name="Serial Registry" parent="menu_meter_config" action="action_meter_serials"/>
+</odoo>

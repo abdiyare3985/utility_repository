@@ -1,0 +1,20 @@
+<odoo>
+    <!-- <report
+        id="action_report_custom_invoice"
+        model="account.move"
+        string="Custom Invoice"
+        report_type="qweb-pdf"
+        name="utility.report_custom_invoice_document"
+        file="utility.report_custom_invoice_document"
+        print_report_name="'Custom_Invoice_' + (object.name or '')"
+    /> -->
+
+    <record id="action_report_custom_invoice" model="ir.actions.report">
+    <field name="name">Invoice Report</field>
+    <field name="model">account.move</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">utility.report_custom_invoice_document</field>
+    <field name="report_file">utility.report_custom_invoice_document</field>
+    </record>
+
+</odoo>

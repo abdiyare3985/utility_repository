@@ -1,0 +1,14 @@
+<odoo>
+ 
+
+    <record id="action_report_utility_meter_list" model="ir.actions.report">
+    <field name="name">Outstanding Summary Report</field>
+    <field name="model">utility.meter</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">utility.report_utility_meter_list</field>
+    <field name="report_file">utility.report_utility_meter_list</field>
+</record>
+
+
+  
+</odoo>

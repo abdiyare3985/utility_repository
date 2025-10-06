@@ -1,0 +1,54 @@
+<odoo>
+    <template id="payment_report_summary_pdf_template">
+        <t t-call="web.external_layout">
+            <main>
+                <div class="page">
+                    <t t-foreach="docs" t-as="wizard">
+                        <div style="text-align:center; margin-bottom: 20px;">
+                            <h2 style="color:#1976d2; margin-bottom: 0;">Payment Summary Report</h2>
+                            <span style="font-size:16px;">
+                                <strong>Date Range:</strong>
+                                <span style="color:#555;">
+                                    <t t-esc="wizard.date_from"/> &#8212; <t t-esc="wizard.date_to"/>
+                                </span>
+                            </span>
+                        </div>
+                        <table class="table table-sm table-bordered" style="width:60%; font-size:13px; margin:auto;">
+                            <thead style="background-color:#f5f5f5;">
+                                <tr>
+                                    <th style="width:50%; text-align:center;">Payment Date</th>
+                                    <th style="width:50%; text-align:center;">Total Amount Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="payments" t-value="env['account.payment'].search([('date', '&gt;=', wizard.date_from), ('date', '&lt;=', wizard.date_to), ('partner_id', '!=', 41193)])"/>
+                                <t t-set="dates" t-value="sorted(set(payments.mapped('date')))"/>
+                                <t t-foreach="dates" t-as="pay_date">
+                                    <t t-set="date_payments" t-value="payments.filtered(lambda p: p.date == pay_date)"/>
+                                    <t t-set="total_amount" t-value="sum(date_payments.mapped('amount'))"/>
+                                    <tr>
+                                        <td style="text-align:center;"><t t-esc="pay_date"/></td>
+                                        <td style="text-align:center;"><t t-esc="'%.2f' % total_amount"/></td>
+                                    </tr>
+                                </t>
+                                <t t-if="not payments">
+                                    <tr>
+                                        <td colspan="2" style="text-align:center; color:#888;">No payments found for the selected date range.</td>
+                                    </tr>
+                                </t>
+                                <!-- Grand total row -->
+                                <tr>
+                                    <td style="text-align:right; font-weight:bold;">Grand Total:</td>
+                                    <td style="text-align:center; font-weight:bold;">
+                                        <t t-set="grand_total" t-value="sum(payments.mapped('amount'))"/>
+                                        <t t-esc="'%.2f' % grand_total"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

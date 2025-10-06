@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_meter_zone_tree" model="ir.ui.view">
+        <field name="name">utility.meter.zone.tree</field>
+        <field name="model">utility.meter.zone</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                 <field name="meter_reader"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_meter_zone_form" model="ir.ui.view">
+        <field name="name">utility.meter.zone.form</field>
+        <field name="model">utility.meter.zone</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="meter_reader"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_meter_zone" model="ir.actions.act_window">
+        <field name="name">Meter Zones4</field>
+        <field name="res_model">utility.meter.zone</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+ 
+    <menuitem id="menu_meter_zone" name="Meter Zones" parent="menu_meter_config" action="action_meter_zone"/>
+</odoo>

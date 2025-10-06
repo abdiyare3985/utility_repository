@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_users_form_inherit_utility" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.utility</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='login']" position="after">
+               <group>
+                    <field name="is_technitian"/>
+                    <field name="is_meterreader"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+       <!-- <record id="view_users_form_inherit_groups_dropdown" model="ir.ui.view">
+    <field name="name">res.users.form.inherit.utility.group.dropdown</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='login']" position="after">
+    <field name="utility_group_id"/>
+</xpath>
+    </field>
+</record> -->
+</odoo>
