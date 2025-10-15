@@ -20,8 +20,12 @@
 
             <!-- Add tariff fields after category -->
             <xpath expr="//field[@name='categ_id']" position="after">
+            
                 <field name="fixed_charge" invisible="not is_billing_plan"/>
+                <field name="default_rate" invisible="not is_billing_plan"/>
+            <field name="limit_value" invisible="not is_billing_plan or pricing_method != 'consumption_based'"/>
                 <field name="consumption_rate" invisible="not is_billing_plan or pricing_method != 'consumption_based'"/>
+                
             </xpath>
 
             <!-- Add tariff blocks page -->

@@ -1,0 +1,92 @@
+<odoo>
+    <template id="report_meter_reading_zone_summary_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div style="text-align:center; margin-bottom: 20px;">
+                    <h2 style="margin-bottom: 0; color: #2c3e50;">Meter Reading Report</h2>
+                    <h4 style="margin-top: 5px; color: #2980b9; letter-spacing: 2px;">Zone Summary</h4>
+                </div>
+                <t t-if="startDate or endDate or zone or min_consumption or max_consumption">
+                    <div style="margin-bottom: 18px; font-size: 13px;">
+                        <span><strong>Start Date:</strong> <t t-esc="startDate"/></span>
+                        <span style="margin-left: 30px;"><strong>End Date:</strong> <t t-esc="endDate"/></span>
+                        <span style="margin-left: 30px;"><strong>Zone:</strong> <t t-esc="zone"/></span>
+                        <t t-if="min_consumption is not None and max_consumption is not None and max_consumption > 0">
+                            <span style="margin-left: 30px;"><strong>Min Consumption:</strong> <t t-esc="min_consumption"/></span>
+                        </t>
+                        <t t-if="max_consumption is not None and max_consumption > 0">
+                            <span style="margin-left: 30px;"><strong>Max Consumption:</strong> <t t-esc="max_consumption"/></span>
+                        </t>
+                    </div>
+                </t>
+                <table class="table table-sm table-bordered" style="width:100%; font-size:13px; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background-color:#2980b9; color:#fff;">
+                            <th style="padding:8px; text-align:center;">Zone</th>
+                            <th style="padding:8px; text-align:center;">Readings Count</th>
+                            <th style="padding:8px; text-align:center;">Total Consumption</th>
+                            <th style="padding:8px; text-align:center;">Total Bill</th>
+                            <th style="padding:8px; text-align:center;">Total Fixed</th>
+                            <th style="padding:8px; text-align:center;">Total Tax</th>
+                            <th style="padding:8px; text-align:center;">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="subtotal_count" t-value="0"/>
+                        <t t-set="subtotal_consumption" t-value="0.0"/>
+                        <t t-set="subtotal_bill" t-value="0.0"/>
+                        <t t-set="subtotal_fixed" t-value="0.0"/>
+                        <t t-set="subtotal_tax" t-value="0.0"/>
+                        <t t-set="subtotal_total" t-value="0.0"/>
+
+                      <t t-foreach="summary" t-as="zone_summary" t-foreach-index="idx">
+    <tr t-att-style="'background-color: %s;' % ('#f8f9fa' if (idx is not None and idx % 2 == 0) else '#ffffff')">
+                                <td style="padding:6px; text-align:center;"><t t-esc="zone_summary['zone'].name"/></td>
+                                <td style="padding:6px; text-align:center;">
+                                    <t t-esc="zone_summary['count']"/>
+                                    <t t-set="subtotal_count" t-value="subtotal_count + (zone_summary['count'] or 0)"/>
+                                </td>
+                                <td style="padding:6px; text-align:center;">
+                                    <t t-esc="zone_summary['total_consumption']"/>
+                                    <t t-set="subtotal_consumption" t-value="subtotal_consumption + (zone_summary['total_consumption'] or 0.0)"/>
+                                </td>
+                                <td style="padding:6px; text-align:center;">
+                                    $<t t-esc="'%.2f' % zone_summary['total_amount']"/>
+                                    <t t-set="subtotal_bill" t-value="subtotal_bill + (zone_summary['total_amount'] or 0.0)"/>
+                                </td>
+                                <td style="padding:6px; text-align:center;">
+                                    $<t t-esc="'%.2f' % zone_summary['total_fixed']"/>
+                                    <t t-set="subtotal_fixed" t-value="subtotal_fixed + (zone_summary['total_fixed'] or 0.0)"/>
+                                </td>
+                                <td style="padding:6px; text-align:center;">
+                                    $<t t-esc="'%.2f' % zone_summary['total_tax']"/>
+                                    <t t-set="subtotal_tax" t-value="subtotal_tax + (zone_summary['total_tax'] or 0.0)"/>
+                                </td>
+                                <td style="padding:6px; text-align:center;">
+                                    $<t t-esc="'%.2f' % zone_summary['total_total']"/>
+                                    <t t-set="subtotal_total" t-value="subtotal_total + (zone_summary['total_total'] or 0.0)"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <!-- Subtotal Row -->
+                        <tr style="font-weight:bold; background-color:#eaf2fb; color:#2c3e50;">
+                            <td style="text-align:right; padding:8px;">Subtotal</td>
+                            <td style="text-align:center; padding:8px;"><t t-esc="subtotal_count"/></td>
+                            <td style="text-align:center; padding:8px;"><t t-esc="subtotal_consumption"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_bill"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_fixed"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_tax"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_total"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <t t-if="not summary">
+                    <div>
+                        <h3 style="text-align:center; color: #888; margin-top:30px;">No meter readings found for the selected period.</h3>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

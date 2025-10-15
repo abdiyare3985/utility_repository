@@ -1,2 +1,5 @@
 from .meter_invoice import report_customer_invoice
 from .meter_reading import report_meter_reading
+from .meter_reading_pending import report_meter_reading_pending
+#from .meter_reading_summary import report_meter_reading_summary
+from .meter_reading_zone_summary import report_meter_reading_zone_summary

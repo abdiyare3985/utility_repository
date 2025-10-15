@@ -63,6 +63,7 @@
                         <group>
                             <field name="meter_id"/>
                             <field name="customer_id" />
+                            <field name="zone_name" />
                             <field name="reading_date"/>
                             <field name="bill_period" readonly="1"/>
                           
@@ -70,6 +71,7 @@
                         <group>
                             <field name="previous_reading" readonly="1"/>
                             <field name="current_reading"/>
+                            
                             <field name="consumption" readonly="1"/>
                             <field name="billed"/>
                         </group>
@@ -103,6 +105,11 @@
         <field name="name">Meter Readings</field>
         <field name="res_model">meter.reading</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_reset_reading', '=', False)]</field>
+   <field name="views" eval="[
+        (ref('view_meter_reading_tree'), 'tree'),
+        (ref('view_meter_reading_form'), 'form')
+    ]"/>
     </record>
 
    

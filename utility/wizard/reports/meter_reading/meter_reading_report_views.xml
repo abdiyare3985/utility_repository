@@ -4,12 +4,22 @@
         <field name="model">meter.reading.report.wizard</field>
         <field name="arch" type="xml">
             <form string="Meter Reading Report">
+            <group>
                 <group>
-                    <field name="period_date"/>
-                     <field name="zone_id"/>
+                    <field name="period_date" />
+                    <field name="period_date2" />
+                    <field name="zone_id" string = "Zone"/>
+                </group>
+                <group>
+                    <field name="min_consumption" string = "Min Consumption"/>
+                    <field name="max_consumption" string = "Max Consumption"/>
+
+                </group>
                 </group>
                 <footer>
-                    <button name="action_print_report" type="object" string="Print PDF" class="btn-primary"/>
+                    <button name="action_print_report" type="object" string="Print Billed" class="btn-primary"/>
+                    <button name="action_print_pending_report" type="object" string="Print Un Billed" class="btn-danger"/>
+                    <button name="action_print_constant_report" type="object" string="Summary By Zone" class="btn-info"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

@@ -11,3 +11,5 @@ from . import bill_plans
 from . import meter_readings
 from . import account_move_inherit
 from . import res_users_inherit
+from . import meter_reset
+from . import meter_reset_history

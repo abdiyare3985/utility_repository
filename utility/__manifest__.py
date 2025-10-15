@@ -22,6 +22,9 @@
         'views/customer_views.xml',
         'views/account_move_inherit_views.xml',
         'views/res_users_inherit_view.xml',
+        'views/single_customer_views.xml',
+        'views/meter_reset_views.xml',
+        'views/meter_reset_history.xml',
 
         'wizard/meter_status_changes/meter_status_reason_wizard_view.xml',
         'wizard/reports/meter_list_report_wizard_view.xml',
@@ -38,12 +41,18 @@
 
         'reports/meter_reading/report_template.xml',
         'reports/meter_reading/report_action.xml',
-        
+
+        'reports/meter_reading_pending/report_template.xml',
+        'reports/meter_reading_pending/report_action.xml',
+
+        'reports/meter_reading_zone_summary/report_template.xml',
+        'reports/meter_reading_zone_summary/report_action.xml',
 
         
     ],
     'installable': True,
-    'application': False,
+    'application': True,
     'auto_install': False,
     'license': 'LGPL-3',
+    
 }

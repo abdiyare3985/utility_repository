@@ -21,6 +21,12 @@ class BillPlans(models.Model):
         default=0.0,
         help="Base fee applied regardless of consumption"
     )
+    limit_value = fields.Float(
+        string='Limit Value',
+        digits=(12, 2),
+        default=0.0,
+        help="Base fee applied regardless of consumption"
+    )
     
     # block_ids = fields.One2many(
     #     'billing.tariff.block',
@@ -54,6 +60,11 @@ class BillPlans(models.Model):
         string='Rate per m³',
         digits=(12, 4),
         help="Standard rate per cubic meter for consumption-based pricing"
+    )
+    default_rate = fields.Float(
+        string='Default Rate',
+        digits=(12, 4),
+        help="Standard rate for non consuming customers"
     )
 
     tax_on_consumption = fields.Boolean(

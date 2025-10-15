@@ -12,3 +12,6 @@ access_meter_status_reason_wizard_user,meter.status.reason.wizard user,model_met
 access_meter_list_report_wizard,meter.list.report.wizard,model_meter_list_report_wizard,base.group_user,1,1,1,1
 access_invoice_report_wizard,invoice.report.wizard,model_invoice_report_wizard,base.group_user,1,1,1,1
 access_meter_reading_report_wizard,meter.reading.report.wizard,model_meter_reading_report_wizard,base.group_user,1,1,1,1
+
+access_meter_reset_user,meter.reset user,model_meter_reset,base.group_user,1,1,1,1
+access_meter_reset_history_user,meter.reset.history user,model_meter_reset_history,base.group_user,1,0,1,0

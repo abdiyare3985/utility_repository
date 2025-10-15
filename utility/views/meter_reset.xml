@@ -1,0 +1,34 @@
+<odoo>
+    <!-- Tree View -->
+  <odoo>
+    <record id="view_meter_reset_history_tree" model="ir.ui.view">
+        <field name="name">meter.reset.history.tree</field>
+        <field name="model">meter.reset.history</field>
+        <field name="arch" type="xml">
+            <tree string="Meter Reset History">
+                <field name="meter_id"/>
+                <field name="current_reading"/>
+                <field name="reset_date"/>
+                <field name="note"/>
+                <field name="meter_reset_type"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
+
+    <!-- Action to open the views -->
+    <record id="action_utility_meter_reset" model="ir.actions.act_window">
+        <field name="name">Meter Reset Readings</field>
+        <field name="res_model">meter.reset.history</field>
+        <field name="view_mode">tree,form</field>
+        
+       
+    </record>
+
+    <!-- Menu item (optional, if you want a menu for this view) -->
+    <menuitem id="menu_utility_meter_reset"
+              name="Meter Reset Readings"
+              parent="menu_meter_config"
+              action="action_utility_meter_reset"
+              sequence="60"/>
+</odoo>

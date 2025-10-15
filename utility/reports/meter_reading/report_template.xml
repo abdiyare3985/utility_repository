@@ -2,57 +2,93 @@
     <template id="report_meter_reading_document">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
-                <h2 style="text-align:center;">Meter Reading Report</h2>
-                <t t-if="period or zone">
-                    <div style="margin-bottom: 10px;">
-                        <span><strong>Period:</strong> <t t-esc="period"/></span>
+                <div style="text-align:center; margin-bottom: 20px;">
+                    <h2 style="margin-bottom: 0; color: #2c3e50;">Meter Reading Report</h2>
+                    <h4 style="margin-top: 5px; color: #2980b9; letter-spacing: 2px;">Detailed Consumption</h4>
+                </div>
+                <t t-if="startDate or endDate or zone or min_consumption or max_consumption">
+                    <div style="margin-bottom: 18px; font-size: 13px;">
+                       <span><strong>Start Date:</strong> <t t-esc="startDate"/></span>
+                        <span style="margin-left: 30px;"><strong>End Date:</strong> <t t-esc="endDate"/></span>
                         <span style="margin-left: 30px;"><strong>Zone:</strong> <t t-esc="zone"/></span>
+                        <t t-if="min_consumption is not None and max_consumption is not None and max_consumption > 0">
+                            <span style="margin-left: 30px;"><strong>Min Consumption:</strong> <t t-esc="min_consumption"/></span>
+                        </t>
+                        <t t-if="max_consumption is not None and max_consumption > 0">
+                            <span style="margin-left: 30px;"><strong>Max Consumption:</strong> <t t-esc="max_consumption"/></span>
+                        </t>
                     </div>
                 </t>
-                <table class="table table-sm table-bordered" style="width:100%; font-size:12px;">
+                <table class="table table-sm table-bordered" style="width:100%; font-size:13px; border-collapse:collapse;">
                     <thead>
-                        <tr>
-                            <th style="text-align:center;">Reading Number</th>
-                            <th style="text-align:center;">Meter ID</th>
-                            <!-- <th style="text-align:center;">Meter Name</th>
-                            <th style="text-align:center;">Period</th>
-                            <th style="text-align:center;">Previous Reading</th>
-                            <th style="text-align:center;">Current Reading</th>
-                            <th style="text-align:center;">Consumption</th>
-                            <th style="text-align:center;">Bill</th>
-                            <th style="text-align:center;">Fixed Charge</th>
-                            <th style="text-align:center;">Tax</th>
-                            <th style="text-align:center;">Total</th> -->
+                        <tr style="background-color:#2980b9; color:#fff;">
+                            <th style="padding:8px; text-align:center;">S/N</th>
+                            <th style="padding:8px; text-align:center;">Meter</th>
+                            <th style="padding:8px;">Customer Name</th>
+                            <th style="padding:8px; text-align:center;">Period</th>
+                            <th style="padding:8px; text-align:center;">Previous Reading</th>
+                            <th style="padding:8px; text-align:center;">Current Reading</th>
+                            <th style="padding:8px; text-align:center;">Consumption</th>
+                            <th style="padding:8px; text-align:center;">Bill</th>
+                            <th style="padding:8px; text-align:center;">Fixed Charge</th>
+                            <th style="padding:8px; text-align:center;">Tax</th>
+                            <th style="padding:8px; text-align:center;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                      <t t-foreach="docs" t-as="reading" t-counter="idx">
-        <tr>
-            <td><t t-esc="idx"/></td>
-            <td><t t-esc="reading.id"/></td>
-        </tr>
-    </t>
-                        <!-- <t t-foreach="docs" t-as="reading" t-counter="idx">
-                            <tr>
-                                <td style="text-align:center;"><t t-esc="idx"/></td>
+                        <t t-set="sn" t-value="0"/>
+                        <t t-set="subtotal_consumption" t-value="0.0"/>
+                        <t t-set="subtotal_bill" t-value="0.0"/>
+                        <t t-set="subtotal_fixed" t-value="0.0"/>
+                        <t t-set="subtotal_tax" t-value="0.0"/>
+                        <t t-set="subtotal_total" t-value="0.0"/>
+                        <t t-foreach="docs" t-as="reading" t-foreach-index="idx">
+                            <tr t-att-style="'background-color: %s;' % ('#f8f9fa' if (idx is not None and idx % 2 == 0) else '#ffffff')">
+                                <td style="text-align:center;">
+                                    <t t-esc="sn + 1"/>
+                                    <t t-set="sn" t-value="sn + 1"/>
+                                </td>
                                 <td style="text-align:center;"><t t-esc="reading.meter_id.name if reading.meter_id else ''"/></td>
-                                <td style="text-align:center;"><t t-esc="reading.meter_id.customer_id.name if reading.meter_id and reading.meter_id.customer_id else ''"/></td>
+                                <td><t t-esc="reading.meter_id.customer_id.name if reading.meter_id and reading.meter_id.customer_id else ''"/></td>
                                 <td style="text-align:center;"><t t-esc="reading.bill_period"/></td>
                                 <td style="text-align:center;"><t t-esc="reading.previous_reading"/></td>
                                 <td style="text-align:center;"><t t-esc="reading.current_reading"/></td>
-                                <td style="text-align:center;"><t t-esc="reading.consumption"/></td>
-                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.amount"/></td>
-                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.fixed_charge"/></td>
-                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.tax_amount"/></td>
-                                <td style="text-align:center;">$<t t-esc="'%.2f' % reading.total_amount"/></td>
+                                <td style="text-align:center;">
+                                    <t t-esc="reading.consumption"/>
+                                    <t t-set="subtotal_consumption" t-value="subtotal_consumption + (reading.consumption or 0.0)"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    $<t t-esc="'%.2f' % reading.amount"/>
+                                    <t t-set="subtotal_bill" t-value="subtotal_bill + (reading.amount or 0.0)"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    $<t t-esc="'%.2f' % reading.fixed_charge"/>
+                                    <t t-set="subtotal_fixed" t-value="subtotal_fixed + (reading.fixed_charge or 0.0)"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    $<t t-esc="'%.2f' % reading.tax_amount"/>
+                                    <t t-set="subtotal_tax" t-value="subtotal_tax + (reading.tax_amount or 0.0)"/>
+                                </td>
+                                <td style="text-align:center;">
+                                    $<t t-esc="'%.2f' % reading.total_amount"/>
+                                    <t t-set="subtotal_total" t-value="subtotal_total + (reading.total_amount or 0.0)"/>
+                                </td>
                             </tr>
-                        </t> -->
+                        </t>
+                        <!-- Subtotal Row -->
+                        <tr style="font-weight:bold; background-color:#eaf2fb; color:#2c3e50;">
+                            <td colspan="6" style="text-align:right; padding:8px;">Subtotal</td>
+                            <td style="text-align:center; padding:8px;"><t t-esc="subtotal_consumption"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_bill"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_fixed"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_tax"/></td>
+                            <td style="text-align:center; padding:8px;">$<t t-esc="'%.2f' % subtotal_total"/></td>
+                        </tr>
                     </tbody>
                 </table>
                 <t t-if="not docs">
                     <div>
-                        <h3 style="text-align:center; color: #888;">No meter readings found for the selected period.</h3>
+                        <h3 style="text-align:center; color: #888; margin-top:30px;">No meter readings found for the selected period.</h3>
                     </div>
                 </t>
             </t>

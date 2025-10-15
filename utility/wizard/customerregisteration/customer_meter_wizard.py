@@ -1,5 +1,5 @@
-from odoo import models, fields, api
-
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 class CreateCustomerMeterWizard(models.TransientModel):
     _name = 'create.customer.meter.wizard'
     _description = 'Create Customer Meter Wizard'
@@ -198,6 +198,7 @@ class CreateCustomerMeterWizard(models.TransientModel):
                 customer.meter_id = meter.id
                 self.lead_id.partner_id = customer.id
                 self.lead_id.meter_id = meter.id
+                customer.billing_account = new_id
         except Exception as e:
             raise ValidationError(_("Failed to create customer and meter: %s") % str(e))
         return {'type': 'ir.actions.act_window_close'}

@@ -46,7 +46,7 @@
                         </group>
                         <group>
                             <separator string="Customer"/>
-                            <field name="customer_id"/>
+                            <field name="customer_id" context="{'form_view_ref': 'utility.view_single_customer_form'}"/>
                             <field name="tariff_id"/>
                             <field name="discount_id"/>
                         </group>

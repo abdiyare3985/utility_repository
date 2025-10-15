@@ -1,0 +1,47 @@
+<odoo>
+    <!-- Tree View for Meter Reset History -->
+    <record id="view_meter_reset_history_tree" model="ir.ui.view">
+        <field name="name">meter.reset.history.tree</field>
+        <field name="model">meter.reset.history</field>
+        <field name="arch" type="xml">
+            <tree string="Meter Reset History">
+              
+                <field name="meter_name"/>
+                <field name="current_reading" string='Reset Value'/>
+                <field name="reset_date"/>
+                <field name="note"/>
+                <field name="meter_reset_type"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="view_utility_meter_reset_history_search" model="ir.ui.view">
+        <field name="name">utility.reset.history.search</field>
+        <field name="model">meter.reset.history</field>
+        <field name="arch" type="xml">
+            <search string="Search Meters">
+                <field name="meter_name" string="Meter Code"/>
+               
+
+               
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for Meter Reset History -->
+    <record id="action_meter_reset_history" model="ir.actions.act_window">
+        <field name="name">Meter Reset History</field>
+        <field name="res_model">meter.reset.history</field>
+        <field name="view_mode">tree</field>
+        <field name="views" eval="[(ref('view_meter_reset_history_tree'), 'tree')]"/>
+    <field name="search_view_id" ref="view_utility_meter_reset_history_search"/>
+    </record>
+
+    <!-- Menuitem for Meter Reset History (adjust parent as needed) -->
+    <menuitem id="menu_meter_reset_history"
+              name="Meter Reset History"
+              parent="menu_meter_reports"
+              action="action_meter_reset_history"
+              sequence="70"/>
+</odoo>

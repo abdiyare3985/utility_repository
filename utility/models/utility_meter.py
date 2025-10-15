@@ -6,8 +6,26 @@ class UtilityMeter(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Utility Meter'
 
-    name = fields.Char(string='Meter Serial/Code', required=True)
-    customer_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='cascade', domain=[('customer_rank', '>', 0)], unique=True)
+    # _sql_constraints = [
+    #     ('name_uniq', 'unique(name)', 'Meter Code must be unique.')
+    # ]
+
+    _sql_constraints = [
+    ('name_uniq', 'unique(name)', 'Meter Code must be unique.'),
+    ('customer_id_uniq', 'unique(customer_id)', 'Each customer can only have one meter assigned!'),
+]
+
+    _indexes = {
+    'utility_meter_customer_id_idx': ('customer_id',),
+    'utility_meter_meter_status_idx': ('meter_status',),
+    'utility_meter_meter_type_idx': ('meter_type',),
+    'utility_meter_zone_id_idx': ('zone_id',),
+    'utility_meter_serial_id_idx': ('serial_id',),
+}
+
+    name = fields.Integer(string='Meter Code', required=True)
+    
+    customer_id = fields.Many2one('res.partner', string='Customer', required=True, ondelete='cascade', domain=[('customer_rank', '>', 0)])
     meter_status = fields.Selection([
         ('connected', 'Connected'),
         ('disconnected', 'Disconnected'),
@@ -105,3 +123,10 @@ class UtilityMeter(models.Model):
     #                 body=f"Meter status changed from <b>{old}</b> to <b>{rec.meter_status}</b> by {self.env.user.name}"
     #             )
     #     return res
+
+    # @api.model
+    # def get_by_primary_meter(self, primary_meter_value):
+    #     """
+    #     Returns a recordset of utility.meter records matching the given primary_meter value.
+    #     """
+    #     return self.search([('primary_meter', '=', primary_meter_value)])

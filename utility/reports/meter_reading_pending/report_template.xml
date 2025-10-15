@@ -1,0 +1,56 @@
+<odoo>
+    <template id="report_meter_reading_pending_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div style="text-align:center; margin-bottom: 20px;">
+                    <h2 style="margin-bottom: 0; color: #2c3e50;">Unbilled Meters Report</h2>
+                    <h4 style="margin-top: 5px; color: #2980b9; letter-spacing: 2px;">Pending Meter Readings</h4>
+                </div>
+                <t t-if="startDate or endDate or zone">
+                    <div style="margin-bottom: 18px; font-size: 13px;">
+                        <span><strong>Start Date:</strong> <t t-esc="startDate"/></span>
+                        <span style="margin-left: 30px;"><strong>End Date:</strong> <t t-esc="endDate"/></span>
+                        <span style="margin-left: 30px;"><strong>Zone:</strong> <t t-esc="zone"/></span>
+                    </div>
+                </t>
+                <table class="table table-sm table-bordered" style="width:100%; font-size:13px; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background-color:#2980b9; color:#fff;">
+                            <th style="padding:8px; text-align:center;">S/N</th>
+                            <th style="padding:8px; text-align:center;">Meter</th>
+                            <th style="padding:8px;">Customer Name</th>
+                            <th style="padding:8px;">Phone</th>
+                            <th style="padding:8px; text-align:center;">Connection Date</th>
+                            <th style="padding:8px; text-align:center;">Zone</th>
+                            <th style="padding:8px; text-align:center;">New Reading</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="sn" t-value="0"/>
+                        <t t-foreach="docs" t-as="meter" t-foreach-index="idx">
+                            <tr t-att-style="'background-color: %s;' % ('#f8f9fa' if (idx is not None and idx % 2 == 0) else '#ffffff')">
+                                <td style="text-align:center;">
+                                    <t t-esc="sn + 1"/>
+                                    <t t-set="sn" t-value="sn + 1"/>
+                                </td>
+                                <td style="text-align:center;"><t t-esc="meter.name"/></td>
+                                <td><t t-esc="(meter.customer_id.name or '').upper() if meter.customer_id else ''"/></td>
+                                <td><t t-esc="meter.customer_id.phone if meter.customer_id else ''"/></td>
+                                <td style="text-align:center;">
+                                    <t t-esc="meter.installation_date and meter.installation_date.strftime('%Y-%m-%d') or ''"/>
+                                </td>
+                                <td style="text-align:center;"><t t-esc="meter.zone_id.name if meter.zone_id else ''"/></td>
+                                <td style="text-align:center;"></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <t t-if="not docs">
+                    <div>
+                        <h3 style="text-align:center; color: #888; margin-top:30px;">No unbilled meters found for the selected period.</h3>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
