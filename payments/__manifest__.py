@@ -23,7 +23,10 @@
 
         'reports/payment_report_user_summary/payment_report_by_user_summary_templates.xml',
         'reports/payment_report_user_summary/payment_report_by_user_summary_actions.xml',
-      
+
+        'reports/payment_reciept_report/payment_reciept_report_templates.xml',
+        'reports/payment_reciept_report/payment_reciept_report_actions.xml'
+
     ],
     'installable': True,
     'application': True,

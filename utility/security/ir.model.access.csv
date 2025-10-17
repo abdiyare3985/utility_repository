@@ -1,6 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_utility_meter_zone,access.utility.meter.zone,model_utility_meter_zone,,1,1,1,1
-access_utility_meter,access.utility.meter,model_utility_meter,,1,1,1,1
+
+access_utility_meter_read,access.utility.meter.read,model_utility_meter,utility.group_meter_read,1,0,0,0
+access_utility_meter_write,access.utility.meter.write,model_utility_meter,utility.group_meter_write,0,1,0,0
+access_utility_meter_create,access.utility.meter.create,model_utility_meter,utility.group_meter_create,0,0,1,0
+access_utility_meter_unlink,access.utility.meter.unlink,model_utility_meter,utility.group_meter_unlink,0,0,0,1
+
 access_create_customer_meter_wizard,access.create.customer.meter.wizard,model_create_customer_meter_wizard,,1,1,1,1
 access_meter_serials_user,access.meter.serials.user,model_meter_serials,base.group_user,1,1,1,1
 access_meter_discounts_user,access.meter.discounts.user,model_meter_discounts,base.group_user,1,1,1,1
@@ -14,4 +19,5 @@ access_invoice_report_wizard,invoice.report.wizard,model_invoice_report_wizard,b
 access_meter_reading_report_wizard,meter.reading.report.wizard,model_meter_reading_report_wizard,base.group_user,1,1,1,1
 
 access_meter_reset_user,meter.reset user,model_meter_reset,base.group_user,1,1,1,1
-access_meter_reset_history_user,meter.reset.history user,model_meter_reset_history,base.group_user,1,0,1,0
+
+access_user_model_permission,access.user.model.permission,model_user_model_permission,base.group_system,1,1,1,1

@@ -1,0 +1,73 @@
+<odoo>
+    <template id="payment_reciept_report_pdf_template">
+        <t t-call="web.external_layout">
+            <main>
+                <t t-if="doc">
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <!-- Receipt Block Template (use for both copies) -->
+                        <t t-foreach="['Customer Copy', 'Bank/Company Copy']" t-as="copy_type">
+                            <div style="width:100%;  background:#fff; box-shadow:0 2px 8px #e0e0e0; padding:24px 28px 18px 28px; margin-bottom:0;{{ ' margin-top:24px;' if copy_idx else '' }}">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                    <div>
+                                        <span style="font-size:23px; font-weight:700; color:#1976d2; letter-spacing:2px;">PAYMENT RECEIPT</span>
+                                        <div style="font-size:13px; color:#888; margin-top:2px;"> <t t-esc="copy_type"/> </div>
+                                    </div>
+                                    <!-- Optional logo -->
+                                    <!-- <img src="/your_module/static/src/img/logo.png" style="height:38px;"/> -->
+                                </div>
+                                <hr style="border:none; border-top:1.5px solid #e0e0e0; margin-bottom:16px;"/>
+                               <table style="width:100%; font-size:15px; margin-bottom: 10px; border-collapse:separate; border-spacing:0 6px;">
+    <tr>
+        <td style="font-weight:600; color:#555; width:38%;">Receipt No:</td>
+        <td style="color:#222;"><t t-esc="doc.payment_reference or doc.ref or doc.id"/></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600; color:#555;">Date:</td>
+        <td style="color:#222;"><t t-esc="doc.date"/></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600; color:#555;">Customer Name:</td>
+        <td style="color:#222;"><t t-esc="doc.partner_id.display_name or doc.partner_id.name or ''"/></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600; color:#555;">Payment Method:</td>
+        <td style="color:#222;"><t t-esc="doc.journal_id.name or ''"/></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600; color:#555;">Reference:</td>
+        <td style="color:#222;"><t t-esc="doc.ref or ''"/></td>
+    </tr>
+    <tr style="background:#f4f8fb;">
+        <td style="font-weight:700; color:#1976d2;">Amount Paid:</td>
+        <td style="font-weight:700; color:#1976d2;">
+            $<t t-esc="'%.2f' % doc.amount"/>
+        </td>
+    </tr>
+</table>
+                                <hr style="border:none; border-top:1px dashed #b0b0b0; margin:16px 0 10px 0;"/>
+                                <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px;">
+                                    <div>
+                                        <span style="color:#888;">Authorized by:</span>
+                                        <div style="border-bottom:1px solid #bbb; width:150px; margin-top:12px;"></div>
+                                    </div>
+                                    <div style="color:#888; text-align:right;">
+                                        <span style="font-size:12px;">Printed: </span>
+                                        <t t-esc="doc.date or ''"/>
+                                    </div>
+                                </div>
+                                <div style="text-align:center; color:#888; font-size:11px; margin-top:8px;">
+                                    <small>This is a system-generated receipt. Please retain for your records.</small>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+                <t t-if="not doc">
+                    <div style="color:red; text-align:center; margin:40px;">
+                        <strong>No payment record found for this receipt.</strong>
+                    </div>
+                </t>
+            </main>
+        </t>
+    </template>
+</odoo>

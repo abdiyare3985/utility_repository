@@ -8,7 +8,9 @@
     'category': 'Tools',
     'depends': ['base','crm','account', 'mail','web'],
     'data': [
+        'security/security_groups.xml',
         'security/ir.model.access.csv',
+        
         'views/utility_menus.xml',
         'views/meter_zones_views.xml',
         'views/utility_meter_views.xml',

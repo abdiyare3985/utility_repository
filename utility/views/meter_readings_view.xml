@@ -61,19 +61,19 @@
              
                     <group col="2">
                         <group>
-                            <field name="meter_id"/>
+                            <field name="meter_id" readonly="state in ('posted','cancel')"/>
                             <field name="customer_id" />
                             <field name="zone_name" />
-                            <field name="reading_date"/>
+                            <field name="reading_date" readonly="state in ('posted','cancel')"/>
                             <field name="bill_period" readonly="1"/>
                           
                         </group>
                         <group>
                             <field name="previous_reading" readonly="1"/>
-                            <field name="current_reading"/>
+                            <field name="current_reading" readonly="state in ('posted','cancel')"/>
                             
                             <field name="consumption" readonly="1"/>
-                            <field name="billed"/>
+                            <field name="billed" readonly="state in ('posted','cancel')"/>
                         </group>
                     </group>
                     

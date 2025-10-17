@@ -116,8 +116,22 @@ class AccountPayment(models.Model):
 
 
     # Example: Use Register Payment wizard to pay and reconcile open invoices for a partner
-    
+    # def action_print_receipt(self):
+    #  return {
+    #     'type': 'ir.actions.report',
+    #     'report_name': 'payments.payment_reciept_report_pdf',
+    #     'report_type': 'qweb-pdf',
+    #     'res_id': self.id,
+    #     'target': 'new',  # This opens in a new tab
+    # }
 
+    def action_print_receipt(self):
+        print("Printing receipt...")
+        data = {
+            
+            'payment_id': self.id,
+        }
+        return self.env.ref('payments.payment_reciept_report_pdf').report_action([], data=data)
 
     
 

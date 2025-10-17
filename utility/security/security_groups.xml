@@ -1,0 +1,28 @@
+<odoo>
+
+ <record id="module_category_utility" model="ir.module.category">
+    <field name="name">Utility</field>
+    <field name="sequence">50</field>
+  </record>
+   <record id="group_meter_read" model="res.groups">
+    <field name="name">Utility / Meter / Read</field>
+    <field name="category_id" ref="module_category_utility"/>
+  </record>
+  <record id="group_meter_write" model="res.groups">
+    <field name="name">Utility / Meter / Write</field>
+    <field name="category_id" ref="module_category_utility"/>
+  </record>
+  <record id="group_meter_create" model="res.groups">
+    <field name="name">Utility / Meter / Create</field>
+    <field name="category_id" ref="module_category_utility"/>
+  </record>
+  <record id="group_meter_unlink" model="res.groups">
+    <field name="name">Utility / Meter / Unlink</field>
+    <field name="category_id" ref="module_category_utility"/>
+  </record>
+
+  <record id="group_meterreading_read" model="res.groups">
+    <field name="name">Utility / Meterreading / Read</field>
+    <field name="category_id" ref="module_category_utility"/>
+  </record>
+</odoo>

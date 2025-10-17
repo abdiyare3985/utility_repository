@@ -23,6 +23,14 @@
         <xpath expr="//field[@name='is_internal_transfer']" position="attributes">
             <attribute name="readonly">1</attribute>
         </xpath>
+        <xpath expr="//div[@name='button_box']" position="inside">
+    <button type="object"
+            name="action_print_receipt"
+            class="oe_stat_button"
+            icon="fa-print"
+            string="Print Receipt"
+           invisible="id == False"/>
+</xpath>
         <xpath expr="//field[@name='payment_type']" position="attributes">
             <attribute name="readonly">1</attribute>
         </xpath>
