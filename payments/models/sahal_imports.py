@@ -283,7 +283,8 @@ class SahalImport(models.Model):
         journal = record.env['account.journal'].search([('type', '=', 'bank')], limit=1)
 
     # Always use partner_id 41193
-     partner_id = 41193
+    # partner_id = 41193
+     partner_id = 30710
 
      amount = self._safe_float(record.credit)
      if amount > 0:
